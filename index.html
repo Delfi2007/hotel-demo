@@ -1040,17 +1040,16 @@ body.cursor-active .cursor-ring {
   .hero-scroll { bottom: 1rem; }
   .scroll-rod { height: 30px; }
 
-  /* ── BOOKING BAR ── */
+  /* ── BOOKING BAR — keep desktop 4-col, just smaller ── */
   .booking-bar {
-    margin: 0 0.8rem;
-    padding: 1.2rem 1rem;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    border-top: 2px solid var(--gold);
+    margin: -2rem 1rem 0;
+    padding: 0.9rem 0.8rem;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 0.6rem;
   }
-  .bb-btn { grid-column: 1 / -1; padding: 0.8rem; font-size: 0.55rem; }
-  .bb-field label { font-size: 0.44rem; letter-spacing: 2.5px; }
-  .bb-field input, .bb-field select { font-size: 0.9rem; }
+  .bb-btn { padding: 0.55rem 0.7rem; font-size: 0.36rem; letter-spacing: 1.5px; }
+  .bb-field label { font-size: 0.32rem; letter-spacing: 1.5px; margin-bottom: 0.3rem; }
+  .bb-field input, .bb-field select { font-size: 0.6rem; padding: 0.2rem 0; }
 
   /* ── GENERAL SECTIONS ── */
   section { padding: 4.5rem 0; }
@@ -1060,71 +1059,65 @@ body.cursor-active .cursor-ring {
   .sec-subtitle { font-size: 0.92rem; max-width: 100%; }
   .sec-divider { margin: 1rem auto; }
 
-  /* ── STORY ── */
-  .story-section { padding: 4.5rem 0 6rem; }
-  .story-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .story-visual { max-width: 88%; margin: 0 auto; padding-bottom: 3rem; }
-  .story-img-accent { width: 48%; bottom: -2rem; right: -1rem; }
-  .story-badge { width: 68px; height: 68px; top: -0.8rem; left: -0.8rem; }
-  .story-badge .num { font-size: 1.4rem; }
-  .story-badge .lbl { font-size: 0.36rem; }
+  /* ── STORY — keep desktop 2-col, just smaller ── */
+  .story-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: center; }
+  .story-visual { max-width: 100%; }
+  .story-img-accent { width: 48%; bottom: -1rem; right: -0.5rem; border-width: 2px; }
+  .story-badge { width: 48px; height: 48px; top: -0.6rem; left: -0.6rem; }
+  .story-badge .num { font-size: 1rem; }
+  .story-badge .lbl { font-size: 0.28rem; }
   .story-text { padding-right: 0; }
-  .story-text p { font-size: 0.92rem; line-height: 1.8; margin-bottom: 1rem; }
-  .story-stats { grid-template-columns: repeat(3,1fr); gap: 0.8rem; padding-top: 2rem; margin-top: 2rem; }
-  .stat-num { font-size: 1.6rem; }
-  .stat-label { font-size: 0.42rem; letter-spacing: 1px; }
+  .story-text p { font-size: 0.6rem; line-height: 1.6; margin-bottom: 0.6rem; }
+  .story-stats { grid-template-columns: repeat(3,1fr); gap: 0.5rem; padding-top: 1.2rem; margin-top: 1.2rem; }
+  .stat-num { font-size: 1.1rem; }
+  .stat-label { font-size: 0.3rem; letter-spacing: 0.5px; }
 
-  /* ── ROOMS ── */
-  .rooms-grid { grid-template-columns: 1fr; gap: 1.2rem; }
-  /* Remove the stagger offset on 2nd card */
-  .room-card:nth-child(2) { margin-top: 0 !important; }
-  .room-bg { aspect-ratio: 4/3; }
-  .room-content { padding: 1.2rem; }
-  .room-name { font-size: 1.2rem; }
-  /* Always show features & book button on mobile (no hover) */
-  .room-feats { opacity: 1 !important; transform: translateY(0) !important; }
-  .room-book { opacity: 1 !important; transform: translateY(0) !important; }
+  /* ── ROOMS — keep 3 across like desktop, just smaller ── */
+  .rooms-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 2rem; }
+  .room-card:nth-child(2) { margin-top: 1.2rem !important; }
+  .room-bg { aspect-ratio: 2/3; }
+  .room-content { padding: 0.55rem; }
+  .room-cat { font-size: 0.34rem; letter-spacing: 1px; margin-bottom: 0.2rem; }
+  .room-name { font-size: 0.66rem; line-height: 1.15; margin-bottom: 0.3rem; }
+  .room-price { gap: 0.15rem; margin-bottom: 0.3rem; }
+  .room-price .from, .room-price .per { font-size: 0.32rem; }
+  .room-price .amt { font-size: 0.72rem; }
+  /* hide chips + book button on the tiny cards (matches desktop resting state) */
+  .room-feats { display: none; }
+  .room-book { padding: 0.25rem 0.4rem; font-size: 0.32rem; letter-spacing: 1px; top: 0.5rem; right: 0.5rem; }
 
-  /* ── EXPERIENCE TIMELINE ── */
-  .exp-timeline::before { left: 12px; transform: none; }
+  /* ── EXPERIENCE — keep side-by-side like desktop, just smaller ── */
+  .exp-timeline { margin-top: 3rem; }
   .exp-item {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-    margin-bottom: 3.5rem;
-    padding-left: 2.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    padding-left: 0;
   }
-  /* Centre dot repositioned to left rail */
   .exp-item::after {
-    left: 12px; top: 8px;
-    transform: translateX(-50%);
-    width: 24px; height: 24px;
-    font-size: 0.5rem; padding: 0.3rem;
+    width: 22px; height: 22px;
+    font-size: 0.45rem; padding: 0.25rem;
   }
-  /* Remove alternating layout on mobile — all left-aligned */
-  .exp-item:nth-child(even) .exp-img-wrap { order: unset !important; }
-  .exp-item:nth-child(even) .exp-text { order: unset !important; text-align: left !important; }
-  .exp-item:nth-child(even) .exp-tag { float: none !important; }
-  .exp-item:nth-child(even) .exp-tag::before { display: none !important; }
-  .exp-item:nth-child(even) .exp-tag::after { display: inline-block !important; }
-  .exp-img { aspect-ratio: 16/9; }
-  .exp-num { font-size: 3rem; bottom: -0.5rem; right: 0.5rem; }
-  .exp-text h3 { font-size: 1.4rem; }
-  .exp-text p { font-size: 0.9rem; }
-  .exp-tag { font-size: 0.46rem; padding: 0.3rem 0.7rem; }
+  .exp-img { aspect-ratio: 4/3; }
+  .exp-num { font-size: 2rem; bottom: -0.6rem; right: 0.4rem; }
+  .exp-tag { font-size: 0.38rem; letter-spacing: 2px; padding: 0.25rem 0.5rem; gap: 0.4rem; margin-bottom: 0.7rem; }
+  .exp-tag::after { width: 14px; }
+  .exp-text h3 { font-size: 0.95rem; line-height: 1.2; margin-bottom: 0.6rem; }
+  .exp-text p { font-size: 0.62rem; line-height: 1.6; }
 
-  /* ── AMENITIES ── */
-  .amenities-grid { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
-  .amenity { padding: 1.3rem 0.8rem; }
+  /* ── AMENITIES — keep desktop 4-col, just smaller ── */
+  .amenities-grid { grid-template-columns: repeat(4,1fr); gap: 0.4rem; margin-top: 2rem; }
+  .amenity { padding: 0.8rem 0.4rem; }
   .amenity:hover { transform: none; }
-  .amenity-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
-  .amenity-name { font-size: 0.46rem; letter-spacing: 1.5px; }
-  .amenity-desc { font-size: 0.76rem; line-height: 1.5; }
+  .amenity-icon { font-size: 1rem; margin-bottom: 0.4rem; }
+  .amenity-name { font-size: 0.34rem; letter-spacing: 0.5px; margin-bottom: 0.3rem; }
+  .amenity-desc { font-size: 0.5rem; line-height: 1.4; }
 
-  /* ── GALLERY ── */
-  .gallery-strip { flex-wrap: wrap; }
-  .gal-item { flex: 0 0 50% !important; height: 32vw; min-height: 140px; }
-  .gal-item:last-child { flex: 0 0 100% !important; height: 40vw; }
-  .gal-label { opacity: 1 !important; transform: none !important; font-size: 0.46rem; }
+  /* ── GALLERY — keep single row like desktop, just shorter ── */
+  .gallery-strip { flex-wrap: nowrap; }
+  .gal-item { flex: 1 !important; height: 22vh; min-height: 130px; }
+  .gal-item:last-child { flex: 1 !important; height: 22vh; }
+  .gal-label { opacity: 1 !important; transform: none !important; font-size: 0.32rem; letter-spacing: 1px; bottom: 0.6rem; left: 0.5rem; }
 
   /* ── TESTIMONIALS ── */
   .testimonials-wrap { padding: 0 1.2rem; }
@@ -1133,76 +1126,81 @@ body.cursor-active .cursor-ring {
   .t-quote::before { font-size: 3.5rem; top: -1rem; left: -0.8rem; }
   .t-author { font-size: 0.5rem; }
 
-  /* ── BOOKING CTA ── */
-  .booking-cta { padding: 4.5rem 1.2rem; }
+  /* ── BOOKING CTA — keep desktop 4-col form, just smaller ── */
+  .booking-cta { padding: 4rem 1rem; }
   .booking-form {
-    grid-template-columns: 1fr;
-    gap: 1rem; padding: 1.4rem;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 0.7rem; padding: 1rem 0.9rem;
     max-width: 100%;
   }
-  .bf.submit { margin-top: 0.3rem; }
-  .bf.submit .btn-gold { width: 100%; text-align: center; }
-  .loyalty-strip { font-size: 0.48rem; letter-spacing: 1.5px; }
-  .loyalty-strip::before, .loyalty-strip::after { margin: 0 0.4rem; }
+  .bf label { font-size: 0.32rem; letter-spacing: 1.5px; margin-bottom: 0.4rem; }
+  .bf input, .bf select { font-size: 0.6rem; padding: 0.2rem 0; }
+  .bf.submit .btn-gold { width: 100%; text-align: center; padding: 0.6rem 0.5rem; font-size: 0.34rem; letter-spacing: 1px; }
+  .loyalty-strip { font-size: 0.4rem; letter-spacing: 1px; }
+  .loyalty-strip::before, .loyalty-strip::after { margin: 0 0.3rem; }
 
-  /* ── LOCATION ── */
-  .location-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .location-text h2 { font-size: 1.9rem; }
-  .location-text p { font-size: 0.9rem; }
-  .location-list li { font-size: 0.85rem; padding: 0.6rem 0; }
-  .map-box { aspect-ratio: 16/9; }
+  /* ── LOCATION — keep desktop 2-col, just smaller ── */
+  .location-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: center; }
+  .location-text h2 { font-size: 1.3rem; }
+  .location-text p { font-size: 0.62rem; line-height: 1.6; margin-bottom: 0.7rem; }
+  .location-list { margin-top: 1rem; }
+  .location-list li { font-size: 0.58rem; padding: 0.4rem 0; gap: 0.5rem; }
+  .map-box { aspect-ratio: 1; }
+  .map-label { font-size: 0.38rem; }
 
-  /* ── FOOTER ── */
+  /* ── FOOTER — keep desktop 4-col, just smaller ── */
   footer { padding: 3rem 1.2rem 1.5rem; }
-  .footer-top { grid-template-columns: 1fr 1fr; gap: 1.8rem; }
-  .footer-brand { grid-column: 1 / -1; }
-  .footer-brand p { max-width: 100%; font-size: 0.82rem; }
-  .footer-brand-name { font-size: 1.2rem; }
-  .footer-col h4 { font-size: 0.48rem; }
-  .footer-col a { font-size: 0.82rem; }
+  .footer-top { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1rem; }
+  .footer-brand p { max-width: 100%; font-size: 0.55rem; }
+  .footer-brand-name { font-size: 0.9rem; }
+  .footer-brand-sub { font-size: 0.34rem; }
+  .social-btn { width: 26px; height: 26px; font-size: 0.6rem; }
+  .footer-col h4 { font-size: 0.36rem; margin-bottom: 1rem; }
+  .footer-col a { font-size: 0.55rem; }
+  .footer-col li { margin-bottom: 0.5rem; }
   .footer-bottom { flex-direction: column; gap: 0.4rem; text-align: center; }
-  .footer-bottom p { font-size: 0.48rem; }
+  .footer-bottom p { font-size: 0.42rem; }
 }
 
 /* ===================== SMALL MOBILE ≤ 420px ===================== */
+/* Layouts stay desktop-like (multi-column) — only fine-tune spacing/fonts */
 @media (max-width: 420px) {
-  nav { padding: 0.9rem 1rem; }
-  .nav-logo .name { font-size: 1.1rem; }
-  .nav-logo .sub { font-size: 0.38rem; letter-spacing: 3px; }
+  nav { padding: 0.9rem 0.8rem; }
+  .nav-logo .name { font-size: 1rem; }
+  .nav-logo .sub { font-size: 0.34rem; letter-spacing: 2.5px; }
 
   .hero-title { font-size: clamp(2.2rem, 12vw, 2.8rem); }
   .hero-content { margin-top: 3rem; }
 
-  .booking-bar {
-    margin: 0 0.4rem;
-    grid-template-columns: 1fr;
-    gap: 0.9rem;
-    padding: 1rem 0.9rem;
-  }
+  .booking-bar { margin: -1.5rem 0.5rem 0; gap: 0.4rem; padding: 0.8rem 0.6rem; }
+  .bb-field input, .bb-field select { font-size: 0.52rem; }
 
-  .container { padding: 0 0.9rem; }
+  .container { padding: 0 0.8rem; }
   section { padding: 3.5rem 0; }
 
-  .story-visual { max-width: 100%; }
-  .story-img-accent { width: 42%; right: -0.5rem; }
+  .story-text p { font-size: 0.52rem; line-height: 1.5; }
+  .stat-num { font-size: 0.9rem; }
 
-  .amenities-grid { grid-template-columns: 1fr; }
-  .amenity { padding: 1.1rem 0.9rem; }
+  .amenity { padding: 0.7rem 0.3rem; }
+  .amenity-icon { font-size: 0.85rem; }
+  .amenity-desc { font-size: 0.44rem; }
 
-  .gal-item { flex: 0 0 100% !important; height: 55vw !important; }
+  .gal-item, .gal-item:last-child { flex: 1 !important; height: 14vh !important; min-height: 90px; }
 
   .t-slider { min-height: 320px; }
-  .t-quote { font-size: 0.88rem; }
+  .t-quote { font-size: 0.85rem; }
 
-  .booking-cta { padding: 3.5rem 0.9rem; }
-  .booking-form { padding: 1rem; gap: 0.9rem; }
+  .booking-cta { padding: 3.5rem 0.8rem; }
+  .booking-form { gap: 0.4rem; padding: 0.8rem 0.6rem; }
+  .bf input, .bf select { font-size: 0.52rem; }
 
-  .location-text h2 { font-size: 1.6rem; }
-  .map-box { aspect-ratio: 4/3; }
+  .location-text h2 { font-size: 1.1rem; }
+  .location-text p { font-size: 0.54rem; }
+  .location-list li { font-size: 0.5rem; }
 
-  footer { padding: 2.5rem 0.9rem 1rem; }
-  .footer-top { grid-template-columns: 1fr; gap: 1.5rem; }
-  .footer-social { flex-wrap: wrap; }
+  footer { padding: 2.5rem 0.8rem 1rem; }
+  .footer-col a { font-size: 0.5rem; }
+  .footer-col h4 { font-size: 0.32rem; }
 }
 </style>
 </head>
