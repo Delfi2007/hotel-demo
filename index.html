@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jonker Boutique Hotel — Heritage Luxury in Malacca</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===================== ROOT ===================== */
+:root {
+  --maroon-deep: #1E0008;
+  --maroon: #6B0018;
+  --maroon-mid: #800020;
+  --maroon-light: #9B0030;
+  --gold-dark: #9A7B2F;
+  --gold: #C9A84C;
+  --gold-mid: #D4AF37;
+  --gold-light: #E8CC7A;
+  --gold-shine: #FFE566;
+  --cream: #FDF8F0;
+  --text: #F5ECD7;
+  --text-dim: rgba(245,236,215,0.65);
+  --gold-gradient: linear-gradient(90deg,#BF953F 0%,#FCF6BA 25%,#B38728 50%,#FBF5B7 75%,#AA771C 100%);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Cormorant Garamond', serif;
+  background: var(--maroon-deep);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background: var(--maroon-deep); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius:3px; }
+
+/* ===================== LOADER ===================== */
+#loader {
+  position: fixed; inset:0; z-index:9999;
+  background: var(--maroon-deep);
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:1.5rem;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+#loader.hidden { opacity:0; visibility:hidden; }
+
+.loader-ornament {
+  width:80px; height:80px;
+  border: 1px solid var(--gold);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+  animation: loaderSpin 3s linear infinite;
+}
+.loader-ornament::before {
+  content:'✦';
+  color: var(--gold);
+  font-size:1.5rem;
+  position:absolute;
+}
+.loader-ornament::after {
+  content:'';
+  position:absolute; inset:-8px;
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:50%;
+}
+@keyframes loaderSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.loader-text {
+  font-family:'Montserrat',sans-serif;
+  font-size:0.6rem; letter-spacing:6px;
+  text-transform:uppercase; color: var(--gold);
+}
+.loader-bar {
+  width:200px; height:1px;
+  background: rgba(201,168,76,0.2);
+  position:relative; overflow:hidden;
+}
+.loader-bar::after {
+  content:'';
+  position:absolute; top:0; left:-100%;
+  width:100%; height:100%;
+  background: var(--gold-gradient);
+  animation: loaderFill 2s ease forwards;
+}
+@keyframes loaderFill {
+  from { left:-100%; }
+  to { left:0%; }
+}
+
+/* ===================== PROGRESS BAR ===================== */
+#progress {
+  position:fixed; top:0; left:0; height:2px; z-index:9998;
+  background: var(--gold-gradient);
+  width:0%; transition: width 0.1s linear;
+}
+
+/* ===================== NAV ===================== */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:500;
+  padding: 1.8rem 5rem;
+  display:flex; justify-content:space-between; align-items:center;
+  transition: all 0.5s ease;
+}
+nav.solid {
+  background: rgba(30,0,8,0.96);
+  backdrop-filter: blur(20px);
+  padding: 1rem 5rem;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+.nav-logo {
+  text-decoration:none;
+  display:flex; flex-direction:column; align-items:flex-start;
+}
+.nav-logo .name {
+  font-family:'Playfair Display',serif;
+  font-size:1.4rem; color: var(--gold); letter-spacing:2px;
+  background: var(--gold-gradient);
+  background-size:300% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation: shimmerMove 6s linear infinite;
+}
+.nav-logo .sub {
+  font-family:'Montserrat',sans-serif;
+  font-size:0.5rem; letter-spacing:5px;
+  text-transform:uppercase; color: var(--gold-dark);
+  -webkit-text-fill-color: var(--gold-dark);
+}
+@keyframes shimmerMove {
+  0% { background-position:0% center; }
+  100% { background-position:300% center; }
+}
+.nav-links { display:flex; gap:2.5rem; list-style:none; }
+.nav-links a {
+  color: var(--text-dim); text-decoration:none;
+  font-family:'Montserrat',sans-serif;
+  font-size:0.65rem; letter-spacing:2.5px; text-transform:uppercase;
+  transition: color 0.3s; position:relative;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:-4px; left:0;
+  width:0; height:1px; background: var(--gold);
+  transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { width:100%; }
+.nav-book {
+  background:transparent;
+  border:1px solid var(--gold); color: var(--gold);
+  padding:0.55rem 1.5rem;
+  font-family:'Montserrat',sans-serif;
+  font-size:0.6rem; letter-spacing:3px; text-transform:uppercase;
+  cursor:pointer; text-decoration:none;
+  transition: all 0.3s;
+}
+.nav-book:hover {
+  background: var(--gold); color: var(--maroon-deep);
+}
+
+/* ===================== HERO ===================== */
+.hero {
+  height:100vh; position:relative;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background: url('https://picsum.photos/seed/luxhotel1/1920/1080') center/cover no-repeat;
+  animation: kenBurns 25s ease-in-out infinite alternate;
+}
+.hero-bg::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse at center, rgba(107,0,24,0.3) 0%, rgba(30,0,8,0.7) 70%);
+}
+.hero-bg::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(160deg, rgba(30,0,8,0.8) 0%, rgba(107,0,24,0.4) 40%, rgba(30,0,8,0.9) 100%);
+}
+@keyframes kenBurns {
+  0%   { transform: scale(1)    translateX(0)    translateY(0); }
+  33%  { transform: scale(1.06) translateX(-1%)  translateY(0.5%); }
+  66%  { transform: scale(1.04) translateX(0.5%) translateY(-0.5%); }
+  100% { transform: scale(1.08) translateX(1%)   translateY(0); }
+}
+
+/* Gold particle overlay */
+.hero-particles {
+  position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none;
+}
+.particle {
+  position:absolute;
+  width:2px; height:2px;
+  background: var(--gold);
+  border-radius:50%;
+  animation: particleFloat var(--dur) ease-in-out infinite;
+  opacity:0;
+}
+@keyframes particleFloat {
+  0%   { transform:translateY(0) translateX(0); opacity:0; }
+  20%  { opacity:0.6; }
+  80%  { opacity:0.3; }
+  100% { transform:translateY(-120px) translateX(var(--dx)); opacity:0; }
+}
+
+/* Ornamental frame lines */
+.hero-frame {
+  position:absolute; inset:3rem; z-index:2; pointer-events:none;
+  border:1px solid rgba(201,168,76,0.08);
+}
+.hero-frame::before, .hero-frame::after {
+  content:''; position:absolute;
+  width:60px; height:60px;
+}
+.hero-frame::before {
+  top:-1px; left:-1px;
+  border-top:2px solid var(--gold); border-left:2px solid var(--gold);
+}
+.hero-frame::after {
+  bottom:-1px; right:-1px;
+  border-bottom:2px solid var(--gold); border-right:2px solid var(--gold);
+}
+
+.hero-content {
+  position:relative; z-index:3; text-align:center; padding:0 2rem;
+}
+.hero-eyebrow {
+  font-family:'Montserrat',sans-serif;
+  font-size:0.6rem; letter-spacing:8px; text-transform:uppercase;
+  color: var(--gold); margin-bottom:1.5rem;
+  opacity:0; animation: fadeUp 1s ease 0.8s forwards;
+}
+.hero-eyebrow span { margin:0 0.75rem; opacity:0.4; }
+
+.hero-title {
+  font-family:'Playfair Display',serif;
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  line-height:1.0; margin-bottom:1.5rem;
+  opacity:0; animation: fadeUp 1s ease 1.1s forwards;
+}
+.hero-title .line1 { display:block; color: var(--text); }
+.hero-title .line2 {
+  display:block;
+  background: var(--gold-gradient);
+  background-size:300% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation: shimmerMove 4s linear infinite;
+  font-style:italic;
+}
+.hero-title .line3 { display:block; color: var(--text); }
+
+.hero-divider {
+  display:flex; align-items:center; justify-content:center;
+  gap:1rem; margin-bottom:1.5rem;
+  opacity:0; animation: fadeUp 1s ease 1.4s forwards;
+}
+.hero-divider .line { width:80px; height:1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+.hero-divider .line:last-child { background: linear-gradient(90deg, var(--gold), transparent); }
+.hero-divider .ornament { color: var(--gold); font-size:0.7rem; }
+
+.hero-sub {
+  font-size:1.2rem; font-style:italic;
+  color: var(--text-dim); margin-bottom:3rem; line-height:1.8;
+  opacity:0; animation: fadeUp 1s ease 1.6s forwards;
+}
+
+.hero-cta {
+  display:flex; gap:1.5rem; justify-content:center;
+  opacity:0; animation: fadeUp 1s ease 1.9s forwards;
+}
+.btn-gold {
+  display:inline-block; text-decoration:none;
+  background: var(--gold-gradient); background-size:200% auto;
+  color: var(--maroon-deep);
+  padding:1rem 2.5rem;
+  font-family:'Montserrat',sans-serif;
+  font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; font-weight:600;
+  border:none; cursor:pointer;
+  transition: all 0.4s;
+  position:relative; overflow:hidden;
+}
+.btn-gold::after {
+  content:''; position:absolute;
+  top:50%; left:-60%; width:40%; height:200%;
+  background: rgba(255,255,255,0.2);
+  transform: skewX(-25deg) translateY(-50%);
+  transition: left 0.5s;
+}
+.btn-gold:hover::after { left:120%; }
+.btn-gold:hover { box-shadow:0 10px 40px rgba(201,168,76,0.4); transform:translateY(-2px); }
+
+.btn-ghost {
+  display:inline-block; text-decoration:none;
+  background:transparent; color: var(--text);
+  padding:1rem 2.5rem;
+  font-family:'Montserrat',sans-serif;
+  font-size:0.65rem; letter-spacing:3px; text-transform:uppercase;
+  border:1px solid rgba(245,236,215,0.3); cursor:pointer;
+  transition: all 0.4s;
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform:translateY(-2px); }
+
+.hero-scroll {
+  position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:0.5rem;
+  z-index:3;
+  opacity:0; animation: fadeUp 1s ease 2.5s forwards;
+}
+.hero-scroll .scroll-label {
+  font-family:'Montserrat',sans-serif; font-size:0.5rem;
+  letter-spacing:4px; text-transform:uppercase; color: var(--gold-dark);
+}
+.scroll-rod {
+  width:1px; height:55px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  position:relative; overflow:hidden;
+}
+.scroll-rod::after {
+  content:''; position:absolute; top:0; left:0;
+  width:100%; height:50%;
+  background: var(--gold-shine);
+  animation: scrollDrop 2s ease infinite;
+}
+@keyframes scrollDrop {
+  0%   { top:-50%; }
+  100% { top:150%; }
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(35px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ===================== BOOKING BAR ===================== */
+.booking-bar {
+  position:relative; z-index:10;
+  margin: -3.5rem 5rem 0;
+  background: rgba(30,0,8,0.97);
+  backdrop-filter:blur(30px);
+  border:1px solid rgba(201,168,76,0.25);
+  padding:2rem 3rem;
+  display:grid; grid-template-columns:1fr 1fr 1fr auto;
+  gap:2rem; align-items:end;
+  box-shadow:0 30px 60px rgba(0,0,0,0.5);
+}
+.bb-field label {
+  display:block;
+  font-family:'Montserrat',sans-serif;
+  font-size:0.5rem; letter-spacing:4px; text-transform:uppercase;
+  color: var(--gold); margin-bottom:0.6rem;
+}
+.bb-field input, .bb-field select {
+  width:100%; background:transparent; border:none;
+  border-bottom:1px solid rgba(201,168,76,0.25);
+  color: var(--text);
+  font-family:'Cormorant Garamond',serif; font-size:1.1rem;
+  padding:0.4rem 0; outline:none;
+  transition: border-color 0.3s;
+}
+.bb-field input:focus, .bb-field select:focus { border-color: var(--gold); }
+.bb-field select option { background: var(--maroon-deep); }
+.bb-btn {
+  background: var(--gold-gradient); background-size:200% auto;
+  color: var(--maroon-deep);
+  border:none; cursor:pointer;
+  padding:0.9rem 2rem;
+  font-family:'Montserrat',sans-serif;
+  font-size:0.6rem; letter-spacing:3px; text-transform:uppercase; font-weight:600;
+  transition: all 0.3s; white-space:nowrap;
+}
+.bb-btn:hover { background-position:right center; box-shadow:0 6px 25px rgba(201,168,76,0.4); }
+
+/* ===================== SECTION COMMONS ===================== */
+section { padding:9rem 0; }
+.container { max-width:1280px; margin:0 auto; padding:0 5rem; }
+
+.sec-tag {
+  font-family:'Montserrat',sans-serif;
+  font-size:0.55rem; letter-spacing:6px; text-transform:uppercase;
+  color: var(--gold); margin-bottom:1rem;
+  display:flex; align-items:center; gap:1rem;
+}
+.sec-tag::after { content:''; flex:1; max-width:50px; height:1px; background: var(--gold); opacity:0.4; }
+.sec-tag.center { justify-content:center; }
+.sec-tag.center::before { content:''; flex:0 0 50px; height:1px; background: var(--gold); opacity:0.4; }
+
+.sec-title {
+  font-family:'Playfair Display',serif;
+  font-size: clamp(2rem,4.5vw,3.5rem); line-height:1.15;
+}
+.sec-title .gold { color: var(--gold); }
+.sec-title .italic { font-style:italic; }
+
+.sec-divider {
+  width:50px; height:1px; margin:1.5rem auto;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.sec-subtitle {
+  font-size:1.05rem; font-style:italic;
+  color: var(--text-dim); line-height:1.9; max-width:500px;
+}
+.sec-subtitle.center { text-align:center; margin:0 auto; }
+
+/* ===================== STORY ===================== */
+.story-section { background: linear-gradient(160deg, var(--maroon-deep) 0%, #120005 50%, var(--maroon-deep) 100%); }
+.story-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:7rem; align-items:center;
+}
+.story-visual { position:relative; }
+.story-img-main {
+  width:100%; aspect-ratio:3/4;
+  background: url('https://picsum.photos/seed/heritagehotel/600/800') center/cover;
+  position:relative; overflow:hidden;
+}
+.story-img-main::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(107,0,24,0.5) 0%, transparent 60%);
+}
+.story-img-accent {
+  position:absolute; bottom:-3.5rem; right:-3.5rem;
+  width:55%; aspect-ratio:1;
+  background: url('https://picsum.photos/seed/malacca2/400/400') center/cover;
+  border:4px solid rgba(201,168,76,0.4);
+  box-shadow:0 20px 50px rgba(0,0,0,0.5);
+}
+.story-badge {
+  position:absolute; top:-2rem; left:-2rem;
+  width:90px; height:90px;
+  background: var(--gold-gradient);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  z-index:5;
+}
+.story-badge .num {
+  font-family:'Playfair Display',serif; font-size:2rem;
+  color: var(--maroon-deep); font-weight:700; line-height:1;
+}
+.story-badge .lbl {
+  font-family:'Montserrat',sans-serif; font-size:0.42rem;
+  letter-spacing:1.5px; text-transform:uppercase;
+  color: var(--maroon-deep); text-align:center; line-height:1.4;
+}
+
+.story-text { padding-right:1rem; }
+.story-text p {
+  font-size:1.05rem; line-height:1.95; color: var(--text-dim); margin-bottom:1.5rem;
+}
+.story-stats {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1.5rem; margin-top:3rem; padding-top:3rem;
+  border-top:1px solid rgba(201,168,76,0.15);
+}
+.stat { text-align:center; }
+.stat-num {
+  font-family:'Playfair Display',serif; font-size:2.2rem;
+  color: var(--gold); display:block; line-height:1;
+}
+.stat-label {
+  font-family:'Montserrat',sans-serif; font-size:0.55rem;
+  letter-spacing:2px; text-transform:uppercase;
+  color: rgba(245,236,215,0.45); margin-top:0.3rem;
+  display:block;
+}
+
+/* ===================== ROOMS ===================== */
+.rooms-section { background:#100004; }
+.rooms-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1.5rem; margin-top:4rem;
+}
+.room-card {
+  position:relative; cursor:pointer;
+  transform-style:preserve-3d;
+  transition: transform 0.05s linear, box-shadow 0.3s;
+}
+.room-card:hover { box-shadow:0 30px 70px rgba(0,0,0,0.7); }
+.room-inner { position:relative; overflow:hidden; }
+
+.room-bg {
+  width:100%; aspect-ratio:2/3;
+  background-size:cover; background-position:center;
+  transition: transform 0.7s ease;
+  display:block;
+}
+.room-card:hover .room-bg { transform: scale(1.08); }
+
+.room-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(30,0,8,0.97) 0%, rgba(107,0,24,0.4) 55%, transparent 100%);
+  transition: background 0.4s;
+}
+.room-card:hover .room-overlay {
+  background:linear-gradient(to top, rgba(30,0,8,1) 10%, rgba(107,0,24,0.5) 60%, transparent 100%);
+}
+
+.room-content {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:1.8rem;
+}
+.room-cat {
+  font-family:'Montserrat',sans-serif;
+  font-size:0.5rem; letter-spacing:4px; text-transform:uppercase;
+  color: var(--gold); margin-bottom:0.4rem;
+}
+.room-name {
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem; color: var(--text); margin-bottom:0.6rem;
+}
+.room-price {
+  display:flex; align-items:baseline; gap:0.3rem; margin-bottom:1rem;
+}
+.room-price .from {
+  font-family:'Montserrat',sans-serif; font-size:0.55rem;
+  color: var(--text-dim); text-transform:uppercase;
+}
+.room-price .amt {
+  font-family:'Playfair Display',serif; font-size:1.3rem;
+  background: var(--gold-gradient); background-size:200% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.room-price .per {
+  font-family:'Montserrat',sans-serif; font-size:0.5rem;
+  color: var(--text-dim); text-transform:uppercase;
+}
+.room-feats {
+  display:flex; flex-wrap:wrap; gap:0.5rem;
+  opacity:0; transform:translateY(8px);
+  transition: all 0.4s ease 0.05s;
+  margin-bottom:1rem;
+}
+.room-card:hover .room-feats { opacity:1; transform:translateY(0); }
+.room-feat {
+  font-family:'Montserrat',sans-serif; font-size:0.5rem;
+  letter-spacing:1px; color: var(--text-dim);
+  border:1px solid rgba(201,168,76,0.2);
+  padding:0.2rem 0.6rem;
+}
+.room-book {
+  position:absolute; top:1.2rem; right:1.2rem;
+  background: var(--gold-gradient); background-size:200% auto;
+  color: var(--maroon-deep);
+  padding:0.4rem 1rem;
+  font-family:'Montserrat',sans-serif;
+  font-size:0.5rem; letter-spacing:2px; text-transform:uppercase; font-weight:600;
+  text-decoration:none;
+  opacity:0; transform:translateY(-8px);
+  transition: all 0.35s ease;
+}
+.room-card:hover .room-book { opacity:1; transform:translateY(0); }
+
+/* Shimmer line at top of card on hover */
+.room-inner::before {
+  content:''; position:absolute; top:0; left:-100%; z-index:3;
+  width:100%; height:2px;
+  background: linear-gradient(90deg, transparent, var(--gold-shine), transparent);
+  transition: left 0.6s ease;
+}
+.room-card:hover .room-inner::before { left:100%; }
+
+/* ===================== EXPERIENCE / TIMELINE ===================== */
+.experience-section { background: var(--maroon-deep); overflow:hidden; }
+.exp-timeline {
+  position:relative; margin-top:5rem;
+}
+.exp-timeline::before {
+  content:''; position:absolute;
+  left:50%; top:0; bottom:0; width:1px;
+  background:linear-gradient(to bottom, transparent, rgba(201,168,76,0.35), transparent);
+  transform:translateX(-50%);
+  pointer-events:none;
+}
+.exp-item {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:5rem; margin-bottom:7rem; align-items:center;
+  position:relative;
+}
+.exp-item::after {
+  content:'✦';
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  color: var(--gold); font-size:0.7rem;
+  background: var(--maroon-deep);
+  padding:0.5rem;
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius:50%;
+  width:32px; height:32px;
+  display:flex; align-items:center; justify-content:center;
+  z-index:2;
+}
+.exp-item:nth-child(even) .exp-img-wrap { order:2; }
+.exp-item:nth-child(even) .exp-text   { order:1; text-align:right; }
+.exp-item:nth-child(even) .exp-tag    { float:right; }
+.exp-item:nth-child(even) .exp-tag::after { display:none; }
+.exp-item:nth-child(even) .exp-tag::before {
+  content:''; display:inline-block; width:30px; height:1px;
+  background: var(--gold); margin-right:0.75rem; vertical-align:middle; opacity:0.4;
+}
+
+.exp-img-wrap { position:relative; overflow:hidden; }
+.exp-img {
+  width:100%; aspect-ratio:4/3;
+  background-size:cover; background-position:center;
+  transition: transform 0.8s ease;
+  display:block;
+}
+.exp-img-wrap:hover .exp-img { transform:scale(1.06); }
+.exp-img-wrap::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(107,0,24,0.35) 0%, transparent 65%);
+  pointer-events:none;
+}
+.exp-num {
+  position:absolute; bottom:-1.5rem; right:1.5rem;
+  font-family:'Playfair Display',serif; font-size:5rem;
+  color:rgba(201,168,76,0.07); font-weight:700; line-height:1;
+  pointer-events:none;
+}
+
+.exp-tag {
+  display:inline-flex; align-items:center; gap:0.75rem;
+  font-family:'Montserrat',sans-serif; font-size:0.52rem;
+  letter-spacing:4px; text-transform:uppercase; color: var(--gold);
+  border:1px solid rgba(201,168,76,0.25); padding:0.35rem 0.9rem;
+  margin-bottom:1.2rem;
+}
+.exp-tag::after { content:''; display:inline-block; width:25px; height:1px; background: var(--gold); opacity:0.4; }
+.exp-text h3 {
+  font-family:'Playfair Display',serif;
+  font-size:2rem; line-height:1.25; margin-bottom:1.2rem;
+}
+.exp-text h3 em { color: var(--gold); font-style:italic; }
+.exp-text p {
+  font-size:1rem; line-height:1.95; color: var(--text-dim);
+}
+
+/* ===================== AMENITIES ===================== */
+.amenities-section { background:#0C0003; }
+.amenities-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:1.5rem; margin-top:4rem;
+}
+.amenity {
+  padding:2.5rem 1.5rem; text-align:center;
+  border:1px solid rgba(201,168,76,0.1);
+  position:relative; overflow:hidden;
+  transition: all 0.45s ease; cursor:default;
+}
+.amenity::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(107,0,24,0.25),transparent);
+  opacity:0; transition:opacity 0.4s;
+}
+.amenity::after {
+  content:''; position:absolute; bottom:0; left:0; right:0;
+  height:2px;
+  background: var(--gold-gradient);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform 0.5s ease;
+}
+.amenity:hover { transform:translateY(-10px); border-color:rgba(201,168,76,0.35); box-shadow:0 20px 50px rgba(0,0,0,0.5); }
+.amenity:hover::before { opacity:1; }
+.amenity:hover::after { transform:scaleX(1); }
+.amenity-icon { font-size:2.2rem; margin-bottom:1rem; display:block; }
+.amenity-name {
+  font-family:'Montserrat',sans-serif; font-size:0.6rem;
+  letter-spacing:2.5px; text-transform:uppercase;
+  color: var(--gold); margin-bottom:0.5rem;
+}
+.amenity-desc { font-size:0.88rem; color: var(--text-dim); line-height:1.65; }
+
+/* ===================== GALLERY ===================== */
+.gallery-section { padding:0; }
+.gallery-strip { display:flex; }
+.gal-item {
+  flex:1; height:50vh; min-height:300px;
+  position:relative; overflow:hidden; cursor:pointer;
+}
+.gal-bg {
+  position:absolute; inset:0;
+  background-size:cover; background-position:center;
+  transition:transform 0.7s ease;
+}
+.gal-item:hover .gal-bg { transform:scale(1.12); }
+.gal-item::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(30,0,8,0.85) 0%, rgba(30,0,8,0.2) 60%, transparent 100%);
+  transition:background 0.4s;
+}
+.gal-item:hover::after {
+  background:linear-gradient(to top, rgba(30,0,8,0.95) 0%, rgba(107,0,24,0.4) 70%, transparent 100%);
+}
+.gal-label {
+  position:absolute; bottom:1.5rem; left:1.5rem; z-index:2;
+  font-family:'Montserrat',sans-serif; font-size:0.55rem;
+  letter-spacing:3px; text-transform:uppercase; color: var(--gold);
+  opacity:0; transform:translateY(8px);
+  transition: all 0.4s;
+}
+.gal-item:hover .gal-label { opacity:1; transform:translateY(0); }
+
+/* ===================== TESTIMONIALS ===================== */
+.testimonials-section { background:linear-gradient(160deg,var(--maroon-deep),#120005); text-align:center; }
+.testimonials-wrap { max-width:800px; margin:0 auto; padding:0 4rem; }
+.t-slider { margin-top:4rem; position:relative; min-height:220px; }
+.t-slide {
+  position:absolute; inset:0;
+  opacity:0; transform:translateX(30px);
+  transition: all 0.6s ease;
+  pointer-events:none;
+}
+.t-slide.active {
+  opacity:1; transform:translateX(0);
+  pointer-events:all; position:relative;
+}
+.t-stars { color: var(--gold); font-size:0.8rem; letter-spacing:5px; margin-bottom:1.5rem; }
+.t-quote {
+  font-size:1.2rem; font-style:italic; line-height:1.9;
+  color: rgba(245,236,215,0.88); margin-bottom:2rem;
+  position:relative;
+}
+.t-quote::before {
+  content:'"';
+  font-family:'Playfair Display',serif; font-size:6rem;
+  color:rgba(201,168,76,0.12); position:absolute;
+  top:-2rem; left:-2.5rem; line-height:1;
+}
+.t-author {
+  font-family:'Montserrat',sans-serif; font-size:0.6rem;
+  letter-spacing:3px; text-transform:uppercase; color: var(--gold);
+}
+.t-dots {
+  display:flex; justify-content:center; gap:0.5rem; margin-top:2.5rem;
+}
+.t-dot {
+  width:5px; height:5px; border-radius:50%;
+  background:rgba(201,168,76,0.25); cursor:pointer; transition:all 0.3s;
+  border:none;
+}
+.t-dot.active { background: var(--gold); transform:scale(1.4); }
+
+/* ===================== BOOKING CTA ===================== */
+.booking-cta {
+  background:linear-gradient(135deg,#3D0010 0%,#800020 40%,#5A0018 70%,#3D0010 100%);
+  text-align:center; position:relative; overflow:hidden;
+  padding:9rem 5rem;
+}
+.booking-cta::before {
+  content:''; position:absolute; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.04'%3E%3Cpath d='M40 0l4 4-4 4-4-4 4-4zM0 40l4 4-4 4-4-4 4-4zM80 40l4 4-4 4-4-4 4-4zM40 80l4 4-4 4-4-4 4-4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.booking-cta h2 {
+  font-family:'Playfair Display',serif;
+  font-size: clamp(2.2rem,5vw,3.8rem); margin-bottom:1rem;
+  position:relative;
+}
+.booking-cta p {
+  font-size:1.1rem; font-style:italic; color: var(--text-dim);
+  margin-bottom:3.5rem; position:relative;
+}
+
+.booking-form {
+  display:grid; grid-template-columns:1fr 1fr 1fr auto;
+  gap:2rem; max-width:950px; margin:0 auto;
+  background:rgba(30,0,8,0.7); backdrop-filter:blur(15px);
+  padding:2.5rem 3rem; border:1px solid rgba(201,168,76,0.18);
+  position:relative;
+}
+.bf {
+}
+.bf label {
+  display:block; font-family:'Montserrat',sans-serif;
+  font-size:0.5rem; letter-spacing:4px; text-transform:uppercase;
+  color: var(--gold); margin-bottom:0.7rem;
+}
+.bf input, .bf select {
+  width:100%; background:transparent; border:none;
+  border-bottom:1px solid rgba(201,168,76,0.25);
+  color: var(--text);
+  font-family:'Cormorant Garamond',serif; font-size:1.05rem;
+  padding:0.4rem 0; outline:none;
+  transition: border-color 0.3s;
+}
+.bf input:focus, .bf select:focus { border-color: var(--gold); }
+.bf select option { background: var(--maroon-deep); }
+.bf.submit { display:flex; align-items:flex-end; }
+
+.loyalty-strip {
+  margin-top:2.5rem; position:relative;
+  font-family:'Montserrat',sans-serif; font-size:0.6rem;
+  letter-spacing:2px; text-transform:uppercase;
+  color: var(--gold);
+}
+.loyalty-strip::before, .loyalty-strip::after {
+  content:'—'; margin:0 0.75rem; opacity:0.4;
+}
+
+/* ===================== LOCATION ===================== */
+.location-section { background: var(--maroon-deep); }
+.location-grid { display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center; }
+.location-text h2 { font-family:'Playfair Display',serif; font-size:2.8rem; margin-bottom:1.5rem; line-height:1.2; }
+.location-text p { font-size:1rem; line-height:1.95; color: var(--text-dim); margin-bottom:1.2rem; }
+.location-list { list-style:none; margin-top:2rem; }
+.location-list li {
+  display:flex; align-items:center; gap:1rem;
+  padding:0.8rem 0; border-bottom:1px solid rgba(201,168,76,0.08);
+  font-size:0.92rem; color: var(--text-dim);
+}
+.location-list li::before { content:'◈'; color: var(--gold); font-size:0.65rem; flex-shrink:0; }
+
+.map-box {
+  aspect-ratio:1; border:1px solid rgba(201,168,76,0.2);
+  position:relative; overflow:hidden;
+  background:linear-gradient(135deg,#200010,#0c0005);
+  display:flex; align-items:center; justify-content:center;
+}
+.map-grid {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size:40px 40px;
+}
+.map-dot {
+  width:16px; height:16px; border-radius:50%;
+  background: var(--gold); position:relative; z-index:2;
+  box-shadow:0 0 0 4px rgba(201,168,76,0.2), 0 0 0 8px rgba(201,168,76,0.08);
+  animation: mapPulse 2.5s ease infinite;
+}
+@keyframes mapPulse {
+  0%,100% { box-shadow:0 0 0 4px rgba(201,168,76,0.2), 0 0 0 8px rgba(201,168,76,0.08); }
+  50%      { box-shadow:0 0 0 8px rgba(201,168,76,0.15), 0 0 0 18px rgba(201,168,76,0.04); }
+}
+.map-label {
+  position:absolute; bottom:2rem; left:0; right:0; text-align:center;
+  font-family:'Montserrat',sans-serif; font-size:0.55rem;
+  letter-spacing:4px; text-transform:uppercase; color: var(--gold);
+}
+
+/* ===================== FOOTER ===================== */
+footer {
+  background:#070002; border-top:1px solid rgba(201,168,76,0.1);
+  padding:5rem 5rem 2rem;
+}
+.footer-top {
+  display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:4rem; max-width:1280px; margin:0 auto;
+  padding-bottom:4rem; border-bottom:1px solid rgba(201,168,76,0.08);
+}
+.footer-brand-name {
+  font-family:'Playfair Display',serif; font-size:1.4rem;
+  background: var(--gold-gradient); background-size:300% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text; animation: shimmerMove 6s linear infinite;
+  margin-bottom:0.2rem;
+}
+.footer-brand-sub {
+  font-family:'Montserrat',sans-serif; font-size:0.45rem;
+  letter-spacing:5px; text-transform:uppercase;
+  color: var(--gold-dark); margin-bottom:1.5rem;
+}
+.footer-brand p {
+  font-size:0.88rem; line-height:1.8; color: rgba(245,236,215,0.4);
+  max-width:240px;
+}
+.footer-social { display:flex; gap:0.8rem; margin-top:1.5rem; }
+.social-btn {
+  width:34px; height:34px; border:1px solid rgba(201,168,76,0.2);
+  display:flex; align-items:center; justify-content:center;
+  color: var(--gold-dark); font-size:0.8rem; text-decoration:none;
+  transition: all 0.3s;
+}
+.social-btn:hover { border-color: var(--gold); color: var(--gold); background:rgba(201,168,76,0.05); }
+.footer-col h4 {
+  font-family:'Montserrat',sans-serif; font-size:0.55rem;
+  letter-spacing:3px; text-transform:uppercase; color: var(--gold);
+  margin-bottom:1.5rem;
+}
+.footer-col ul { list-style:none; }
+.footer-col li { margin-bottom:0.7rem; }
+.footer-col a {
+  color: rgba(245,236,215,0.4); text-decoration:none;
+  font-size:0.88rem; transition:color 0.3s;
+}
+.footer-col a:hover { color: var(--gold); }
+.footer-bottom {
+  max-width:1280px; margin:2rem auto 0;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.footer-bottom p {
+  font-family:'Montserrat',sans-serif; font-size:0.55rem;
+  letter-spacing:1.5px; color:rgba(245,236,215,0.22);
+}
+.footer-bottom a { color: var(--gold-dark); text-decoration:none; }
+
+/* ===================== REVEAL ANIMATIONS ===================== */
+.rv { opacity:0; transform:translateY(40px); transition:opacity 0.9s ease, transform 0.9s ease; }
+.rv.vis { opacity:1; transform:translateY(0); }
+.rvl { opacity:0; transform:translateX(-50px); transition:opacity 0.9s ease, transform 0.9s ease; }
+.rvl.vis { opacity:1; transform:translateX(0); }
+.rvr { opacity:0; transform:translateX(50px); transition:opacity 0.9s ease, transform 0.9s ease; }
+.rvr.vis { opacity:1; transform:translateX(0); }
+.rvz { opacity:0; transform:scale(0.88); transition:opacity 0.9s ease, transform 0.9s ease; }
+.rvz.vis { opacity:1; transform:scale(1); }
+
+.d1 { transition-delay:0.1s !important; }
+.d2 { transition-delay:0.2s !important; }
+.d3 { transition-delay:0.3s !important; }
+.d4 { transition-delay:0.4s !important; }
+.d5 { transition-delay:0.5s !important; }
+.d6 { transition-delay:0.6s !important; }
+.d7 { transition-delay:0.7s !important; }
+.d8 { transition-delay:0.8s !important; }
+
+/* ===================== CURSOR ===================== */
+.cursor-ring {
+  position:fixed; width:35px; height:35px;
+  border:1px solid rgba(201,168,76,0.5); border-radius:50%;
+  pointer-events:none; z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform 0.1s ease, width 0.3s, height 0.3s, border-color 0.3s;
+}
+.cursor-dot {
+  position:fixed; width:5px; height:5px;
+  background: var(--gold); border-radius:50%;
+  pointer-events:none; z-index:9999;
+  transform:translate(-50%,-50%);
+}
+body.cursor-active .cursor-ring {
+  width:55px; height:55px; border-color: var(--gold);
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-ornament"></div>
+  <div class="loader-text">Jonker Boutique Hotel</div>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- Scroll Progress -->
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <span class="name">Jonker</span>
+    <span class="sub">Boutique Hotel · Malacca</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#amenities">Amenities</a></li>
+    <li><a href="#location">Location</a></li>
+  </ul>
+  <a href="#book" class="nav-book">Book Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-frame"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span>✦</span> Heritage Luxury <span>✦</span> Jonker Walk, Malacca <span>✦</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="line1">Where Heritage</span>
+      <span class="line2">Meets Luxury</span>
+      <span class="line3">In Malacca</span>
+    </h1>
+    <div class="hero-divider">
+      <span class="line"></span>
+      <span class="ornament">✦</span>
+      <span class="line"></span>
+    </div>
+    <p class="hero-sub">Nestled at the heart of Jonker Street, where history<br>breathes through every cobblestone and memory.</p>
+    <div class="hero-cta">
+      <a href="#book" class="btn-gold">Reserve Your Stay</a>
+      <a href="#rooms" class="btn-ghost">Explore Rooms</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span class="scroll-label">Scroll</span>
+    <div class="scroll-rod"></div>
+  </div>
+</section>
+
+<!-- BOOKING BAR -->
+<div class="booking-bar rv">
+  <div class="bb-field">
+    <label>Check In</label>
+    <input type="date" placeholder="DD / MM / YYYY">
+  </div>
+  <div class="bb-field">
+    <label>Check Out</label>
+    <input type="date" placeholder="DD / MM / YYYY">
+  </div>
+  <div class="bb-field">
+    <label>Guests</label>
+    <select>
+      <option>1 Adult</option>
+      <option>2 Adults</option>
+      <option>2 Adults, 1 Child</option>
+      <option>2 Adults, 2 Children</option>
+    </select>
+  </div>
+  <button class="bb-btn">Check Availability</button>
+</div>
+
+<!-- STORY -->
+<section class="story-section" id="about">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-visual rvl">
+        <div class="story-badge"><span class="num">★</span><span class="lbl">Best<br>Location</span></div>
+        <div class="story-img-main"></div>
+        <div class="story-img-accent"></div>
+      </div>
+      <div class="story-text rvr">
+        <div class="sec-tag">Our Heritage</div>
+        <h2 class="sec-title">A Story Written in<br><span class="gold italic">Gold &amp; Cobblestone</span></h2>
+        <div style="width:50px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:1.5rem 0;"></div>
+        <p>Jonker Boutique Hotel stands at the very beginning of Jonker Street — Malacca's most treasured cultural corridor, where centuries of Peranakan heritage, colonial whispers, and vibrant street life converge into something truly unforgettable.</p>
+        <p>From the moment you arrive, you are not simply checking into a hotel — you are stepping into a living piece of history. Our meticulously appointed rooms blend timeless elegance with modern luxury, offering views that spill across the famous street below.</p>
+        <p>Every stay here is a story waiting to be told. We simply set the stage.</p>
+        <div class="story-stats">
+          <div class="stat rv">
+            <span class="stat-num" data-target="5">0</span>
+            <span class="stat-label">Room Types</span>
+          </div>
+          <div class="stat rv d2">
+            <span class="stat-num" data-target="100">0</span>
+            <span class="stat-label">% Location Score</span>
+          </div>
+          <div class="stat rv d4">
+            <span class="stat-num" data-target="10">0</span>
+            <span class="stat-label">% Loyalty Discount</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section class="rooms-section" id="rooms">
+  <div class="container">
+    <div class="section-header" style="text-align:center;">
+      <div class="sec-tag center rv">Our Accommodations</div>
+      <h2 class="sec-title rv d2" style="text-align:center;">Rooms Crafted for<br><span class="gold italic">Discerning Guests</span></h2>
+      <div class="sec-divider rv d3"></div>
+      <p class="sec-subtitle center rv d4">Each room is a sanctuary of calm — where premium comforts meet the soulful energy of historic Malacca.</p>
+    </div>
+
+    <div class="rooms-grid">
+      <!-- Room 1 -->
+      <div class="room-card rv d1">
+        <div class="room-inner">
+          <div class="room-bg" style="background-image:url('https://picsum.photos/seed/room101/600/900')"></div>
+          <div class="room-overlay"></div>
+          <a href="#book" class="room-book">Book Now</a>
+          <div class="room-content">
+            <div class="room-cat">Superior</div>
+            <div class="room-name">Superior Room</div>
+            <div class="room-price">
+              <span class="from">From</span>
+              <span class="amt">RM 188</span>
+              <span class="per">/ Night</span>
+            </div>
+            <div class="room-feats">
+              <span class="room-feat">City View</span>
+              <span class="room-feat">King Bed</span>
+              <span class="room-feat">Free WiFi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Room 2 -->
+      <div class="room-card rv d3" style="margin-top:3rem;">
+        <div class="room-inner">
+          <div class="room-bg" style="background-image:url('https://picsum.photos/seed/room202/600/900')"></div>
+          <div class="room-overlay"></div>
+          <a href="#book" class="room-book">Book Now</a>
+          <div class="room-content">
+            <div class="room-cat">Deluxe</div>
+            <div class="room-name">Premier Deluxe</div>
+            <div class="room-price">
+              <span class="from">From</span>
+              <span class="amt">RM 258</span>
+              <span class="per">/ Night</span>
+            </div>
+            <div class="room-feats">
+              <span class="room-feat">Jonker View</span>
+              <span class="room-feat">Queen Bed</span>
+              <span class="room-feat">Bathtub</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Room 3 -->
+      <div class="room-card rv d5">
+        <div class="room-inner">
+          <div class="room-bg" style="background-image:url('https://picsum.photos/seed/room303/600/900')"></div>
+          <div class="room-overlay"></div>
+          <a href="#book" class="room-book">Book Now</a>
+          <div class="room-content">
+            <div class="room-cat">Family Suite</div>
+            <div class="room-name">Grand Deluxe Family</div>
+            <div class="room-price">
+              <span class="from">From</span>
+              <span class="amt">RM 338</span>
+              <span class="per">/ Night</span>
+            </div>
+            <div class="room-feats">
+              <span class="room-feat">Family Size</span>
+              <span class="room-feat">Twin + Double</span>
+              <span class="room-feat">Lounge Area</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience-section" id="experience">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="sec-tag center rv">The Jonker Life</div>
+      <h2 class="sec-title rv d2" style="text-align:center;">An <em class="gold" style="font-style:italic;">Experience</em> Beyond Rooms</h2>
+      <div class="sec-divider rv d3"></div>
+      <p class="sec-subtitle center rv d4">Immerse yourself in the living tapestry of Malacca's most iconic street — a world of colour, taste, and culture right at your doorstep.</p>
+    </div>
+
+    <div class="exp-timeline">
+
+      <div class="exp-item">
+        <div class="exp-img-wrap rvl">
+          <div class="exp-img" style="background-image:url('https://picsum.photos/seed/jonkerstreet/800/600')"></div>
+          <div class="exp-num">01</div>
+        </div>
+        <div class="exp-text rvr">
+          <div class="exp-tag">Heritage Walk</div>
+          <h3>The <em>Living</em> Street of Malacca</h3>
+          <p>Step outside and you are already on Jonker Street — a UNESCO-recognised cultural corridor where Baba-Nyonya shophouses, antique galleries, and centuries-old temples form a tapestry found nowhere else on earth.</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-img-wrap rvr">
+          <div class="exp-img" style="background-image:url('https://picsum.photos/seed/peranakan/800/600')"></div>
+          <div class="exp-num">02</div>
+        </div>
+        <div class="exp-text rvl">
+          <div class="exp-tag">Gastronomy</div>
+          <h3>A <em>Feast</em> for All Senses</h3>
+          <p>From legendary Chicken Rice Balls to Nyonya Laksa perfected over generations, the flavours of Malacca are as layered as its history. The best of them begin just below your window.</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-img-wrap rvl">
+          <div class="exp-img" style="background-image:url('https://picsum.photos/seed/nightmarket/800/600')"></div>
+          <div class="exp-num">03</div>
+        </div>
+        <div class="exp-text rvr">
+          <div class="exp-tag">Night Market</div>
+          <h3>When <em>Night</em> Brings Jonker Alive</h3>
+          <p>Every Friday and weekend, Jonker Street transforms into a spectacular night market — an explosion of lights, music, street food, and handmade crafts that draws visitors from across the world.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section class="amenities-section" id="amenities">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="sec-tag center rv">Inclusions</div>
+      <h2 class="sec-title rv d2" style="text-align:center;">Curated <span class="gold italic">Comforts</span></h2>
+      <div class="sec-divider rv d3"></div>
+    </div>
+    <div class="amenities-grid">
+      <div class="amenity rv d1">
+        <span class="amenity-icon">🅿️</span>
+        <div class="amenity-name">Free Parking</div>
+        <div class="amenity-desc">Complimentary private parking for all guests — a rare luxury in the heart of Malacca.</div>
+      </div>
+      <div class="amenity rv d2">
+        <span class="amenity-icon">📶</span>
+        <div class="amenity-name">High-Speed WiFi</div>
+        <div class="amenity-desc">Stay seamlessly connected throughout your stay with blazing-fast wireless access.</div>
+      </div>
+      <div class="amenity rv d3">
+        <span class="amenity-icon">🛎️</span>
+        <div class="amenity-name">Concierge</div>
+        <div class="amenity-desc">Our attentive team is available to arrange tours, reservations, and every special request.</div>
+      </div>
+      <div class="amenity rv d4">
+        <span class="amenity-icon">💳</span>
+        <div class="amenity-name">Loyalty Rewards</div>
+        <div class="amenity-desc">Returning guests enjoy an exclusive 10% loyalty discount on every future booking.</div>
+      </div>
+      <div class="amenity rv d1">
+        <span class="amenity-icon">🏡</span>
+        <div class="amenity-name">Jonker View</div>
+        <div class="amenity-desc">Wake up to iconic street views — your room's window is a living painting of Malacca.</div>
+      </div>
+      <div class="amenity rv d2">
+        <span class="amenity-icon">🌙</span>
+        <div class="amenity-name">Night Market Access</div>
+        <div class="amenity-desc">Walk to the famous Jonker Street Night Market in under a minute from your door.</div>
+      </div>
+      <div class="amenity rv d3">
+        <span class="amenity-icon">✨</span>
+        <div class="amenity-name">Pre-Arrival Requests</div>
+        <div class="amenity-desc">We honour special arrangements made before arrival — birthdays, anniversaries, and more.</div>
+      </div>
+      <div class="amenity rv d4">
+        <span class="amenity-icon">🔖</span>
+        <div class="amenity-name">Best Rate Guarantee</div>
+        <div class="amenity-desc">Book direct and we guarantee you the lowest available rate — always, without exceptions.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<div class="gallery-section">
+  <div class="gallery-strip">
+    <div class="gal-item">
+      <div class="gal-bg" style="background-image:url('https://picsum.photos/seed/gal1/500/700')"></div>
+      <div class="gal-label">Heritage Suite</div>
+    </div>
+    <div class="gal-item">
+      <div class="gal-bg" style="background-image:url('https://picsum.photos/seed/gal2/500/700')"></div>
+      <div class="gal-label">Jonker View</div>
+    </div>
+    <div class="gal-item">
+      <div class="gal-bg" style="background-image:url('https://picsum.photos/seed/gal3/500/700')"></div>
+      <div class="gal-label">Grand Deluxe</div>
+    </div>
+    <div class="gal-item">
+      <div class="gal-bg" style="background-image:url('https://picsum.photos/seed/gal4/500/700')"></div>
+      <div class="gal-label">Premier Deluxe</div>
+    </div>
+    <div class="gal-item">
+      <div class="gal-bg" style="background-image:url('https://picsum.photos/seed/gal5/500/700')"></div>
+      <div class="gal-label">Malacca Culture</div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials">
+  <div class="testimonials-wrap">
+    <div class="sec-tag center rv">Guest Stories</div>
+    <h2 class="sec-title rv d2" style="text-align:center;">Words from<br><span class="gold italic">Our Guests</span></h2>
+    <div class="sec-divider rv d3"></div>
+    <div class="t-slider rv d4">
+      <div class="t-slide active">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">Every good review you read about this hotel on TripAdvisor — multiply it. The location is extraordinary, the rooms are immaculate, and the staff go far beyond what you could ever expect. Jonker Boutique Hotel is a rare gem in every sense.</p>
+        <div class="t-author">— Ahmad R., Kuala Lumpur</div>
+      </div>
+      <div class="t-slide">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">Waking up to Jonker Street outside our window was simply magical. The morning light through the heritage windows, the sounds of the city waking — this hotel gave us a memory we will carry for life.</p>
+        <div class="t-author">— Sarah & James, London</div>
+      </div>
+      <div class="t-slide">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">The best-located hotel in all of Malacca. We could walk to every attraction, the night market was at our doorstep, and the rooms were spotless and beautifully decorated. Already planning our return visit.</p>
+        <div class="t-author">— Mei Lin, Singapore</div>
+      </div>
+    </div>
+    <div class="t-dots">
+      <button class="t-dot active" data-slide="0"></button>
+      <button class="t-dot" data-slide="1"></button>
+      <button class="t-dot" data-slide="2"></button>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location-section" id="location">
+  <div class="container">
+    <div class="location-grid">
+      <div class="location-text rvl">
+        <div class="sec-tag">Find Us</div>
+        <h2 class="sec-title">The <span class="gold italic">Best Location</span><br>in All of Malacca</h2>
+        <div style="width:50px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:1.5rem 0;"></div>
+        <p>Positioned at the very entrance of the legendary Jonker Street, our hotel places you at the cultural epicentre of Malacca — UNESCO World Heritage Site and Malaysia's most beloved historic city.</p>
+        <p>Everything Malacca has to offer is within a short, beautiful walk from your door.</p>
+        <ul class="location-list">
+          <li>Jonker Street Night Market — At Your Doorstep</li>
+          <li>Baba &amp; Nyonya Heritage Museum — 3 min walk</li>
+          <li>Stadhuys &amp; Christ Church — 8 min walk</li>
+          <li>A Famosa &amp; St. Paul's Hill — 12 min walk</li>
+          <li>Malacca River Cruise — 5 min walk</li>
+          <li>Free Private Parking Available</li>
+        </ul>
+      </div>
+      <div class="map-box rvr">
+        <div class="map-grid"></div>
+        <div style="text-align:center; z-index:2; position:relative;">
+          <div class="map-dot" style="margin:0 auto 1rem;"></div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text);margin-bottom:0.3rem;">Jonker Boutique Hotel</div>
+          <div class="map-label">Jonker Walk · Malacca · Malaysia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CTA -->
+<section class="booking-cta" id="book">
+  <h2 class="rv">Begin Your <span style="background:var(--gold-gradient);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmerMove 4s linear infinite;">Malacca Story</span></h2>
+  <p class="rv d2">Reserve your stay directly and enjoy our guaranteed best rate.</p>
+  <div class="booking-form rv d3">
+    <div class="bf">
+      <label>Check In</label>
+      <input type="date">
+    </div>
+    <div class="bf">
+      <label>Check Out</label>
+      <input type="date">
+    </div>
+    <div class="bf">
+      <label>Room Type</label>
+      <select>
+        <option>Superior</option>
+        <option>Deluxe</option>
+        <option>Premier Deluxe</option>
+        <option>Grand Deluxe Double</option>
+        <option>Grand Deluxe Family</option>
+      </select>
+    </div>
+    <div class="bf submit">
+      <button class="btn-gold" style="width:100%;">Book Direct</button>
+    </div>
+  </div>
+  <div class="loyalty-strip rv d5">Direct booking always gets you the best price</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-brand-name">Jonker Boutique Hotel</div>
+      <div class="footer-brand-sub">Heritage Luxury · Malacca</div>
+      <p>A boutique sanctuary at the heart of Jonker Walk — where the heritage of Malacca becomes the backdrop to your most treasured memories.</p>
+      <div class="footer-social">
+        <a class="social-btn" href="#">f</a>
+        <a class="social-btn" href="#">in</a>
+        <a class="social-btn" href="#">ig</a>
+        <a class="social-btn" href="#">✉</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Rooms</h4>
+      <ul>
+        <li><a href="#">Superior Room</a></li>
+        <li><a href="#">Deluxe Room</a></li>
+        <li><a href="#">Premier Deluxe</a></li>
+        <li><a href="#">Grand Deluxe Double</a></li>
+        <li><a href="#">Grand Deluxe Family</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#">Jonker Street</a></li>
+        <li><a href="#">Heritage Sites</a></li>
+        <li><a href="#">Night Market</a></li>
+        <li><a href="#">Local Cuisine</a></li>
+        <li><a href="#">River Cruise</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Information</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Book Direct</a></li>
+        <li><a href="#">Loyalty Program</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Jonker Boutique Hotel · Jonker Walk, Malacca, Malaysia</p>
+    <p>Designed with ♥ · <a href="#">Privacy Policy</a></p>
+  </div>
+</footer>
+
+<!-- ===================== JS ===================== -->
+<script>
+// ===== LOADER =====
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 2200);
+});
+
+// ===== SCROLL PROGRESS =====
+window.addEventListener('scroll', () => {
+  const prog = document.getElementById('progress');
+  const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  prog.style.width = scrolled + '%';
+});
+
+// ===== NAV SOLID ON SCROLL =====
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('solid', window.scrollY > 80);
+});
+
+// ===== CURSOR =====
+const ring = document.getElementById('cursorRing');
+const dot  = document.getElementById('cursorDot');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px';
+  dot.style.top  = my + 'px';
+});
+
+function animCursor() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+
+document.querySelectorAll('a, button, .room-card, .amenity, .gal-item').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-active'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-active'));
+});
+
+// ===== HERO PARTICLES =====
+const pWrap = document.getElementById('particles');
+for (let i = 0; i < 30; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.cssText = `
+    left:${Math.random()*100}%;
+    bottom:${Math.random()*30}%;
+    --dur:${3+Math.random()*5}s;
+    --dx:${(Math.random()-0.5)*60}px;
+    animation-delay:${Math.random()*6}s;
+    width:${1+Math.random()*2}px;
+    height:${1+Math.random()*2}px;
+    opacity:${0.3+Math.random()*0.5};
+  `;
+  pWrap.appendChild(p);
+}
+
+// ===== SCROLL REVEAL =====
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.rv, .rvl, .rvr, .rvz').forEach(el => revealObs.observe(el));
+
+// ===== COUNTER ANIMATION =====
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      let current = 0;
+      const step = target / 50;
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = Math.floor(current) + (el.dataset.suffix || '');
+      }, 30);
+      counterObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat-num[data-target]').forEach(el => counterObs.observe(el));
+
+// ===== 3D ROOM CARD TILT =====
+document.querySelectorAll('.room-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
+    const cx = r.width / 2;
+    const cy = r.height / 2;
+    const rotX = ((y - cy) / cy) * -10;
+    const rotY = ((x - cx) / cx) * 10;
+    card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(8px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+    card.style.transition = 'transform 0.5s ease, box-shadow 0.3s';
+    setTimeout(() => card.style.transition = '', 500);
+  });
+  card.addEventListener('mouseenter', () => {
+    card.style.transition = 'transform 0.1s linear, box-shadow 0.3s';
+  });
+});
+
+// ===== AMENITY TILT =====
+document.querySelectorAll('.amenity').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
+    const cx = r.width / 2;
+    const cy = r.height / 2;
+    const rotX = ((y - cy) / cy) * -6;
+    const rotY = ((x - cx) / cx) * 6;
+    card.style.transform = `perspective(700px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-10px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+    card.style.transition = 'transform 0.4s ease, border-color 0.4s, box-shadow 0.4s';
+    setTimeout(() => card.style.transition = '', 400);
+  });
+  card.addEventListener('mouseenter', () => {
+    card.style.transition = 'transform 0.05s linear, border-color 0.4s, box-shadow 0.4s';
+  });
+});
+
+// ===== TESTIMONIAL SLIDER =====
+let currentSlide = 0;
+const slides = document.querySelectorAll('.t-slide');
+const dots   = document.querySelectorAll('.t-dot');
+
+function goSlide(n) {
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  currentSlide = (n + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+
+dots.forEach(d => d.addEventListener('click', () => goSlide(parseInt(d.dataset.slide))));
+
+setInterval(() => goSlide(currentSlide + 1), 5000);
+
+// ===== PARALLAX HERO =====
+window.addEventListener('scroll', () => {
+  const heroBg = document.querySelector('.hero-bg');
+  if (heroBg) {
+    heroBg.style.transform = `translateY(${window.scrollY * 0.4}px)`;
+  }
+});
+
+// ===== PARALLAX STORY IMAGES =====
+window.addEventListener('scroll', () => {
+  const mainImg = document.querySelector('.story-img-main');
+  const accImg  = document.querySelector('.story-img-accent');
+  if (!mainImg) return;
+  const rect = mainImg.getBoundingClientRect();
+  const pct  = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+  if (pct > 0 && pct < 1) {
+    mainImg.style.backgroundPositionY = `${50 + (pct - 0.5) * 20}%`;
+    if (accImg) accImg.style.backgroundPositionY = `${50 - (pct - 0.5) * 15}%`;
+  }
+});
+
+// ===== SMOOTH ANCHOR SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
