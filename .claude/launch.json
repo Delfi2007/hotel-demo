@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "hotel-demo",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-p", "8091", "-s", "."],
+      "port": 8091
+    }
+  ]
+}

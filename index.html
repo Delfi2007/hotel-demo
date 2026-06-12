@@ -24,13 +24,22 @@
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
 body {
   font-family: 'Cormorant Garamond', serif;
   background: var(--maroon-deep);
   color: var(--text);
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
 }
 
 ::-webkit-scrollbar { width:5px; }
@@ -137,6 +146,7 @@ nav.solid {
   100% { background-position:300% center; }
 }
 .nav-links { display:flex; gap:2.5rem; list-style:none; }
+.nav-links-book { display:none; }
 .nav-links a {
   color: var(--text-dim); text-decoration:none;
   font-family:'Montserrat',sans-serif;
@@ -937,6 +947,263 @@ footer {
 body.cursor-active .cursor-ring {
   width:55px; height:55px; border-color: var(--gold);
 }
+
+/* ===================== HAMBURGER BUTTON ===================== */
+.nav-toggle {
+  display: none;
+  flex-direction: column; gap: 5px; cursor: pointer;
+  background: none; border: none; padding: 0.4rem; z-index: 600;
+}
+.nav-toggle span {
+  display: block; width: 24px; height: 1.5px;
+  background: var(--gold); border-radius: 2px; transition: all 0.35s ease;
+}
+.nav-toggle.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-toggle.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ===================== TABLET ≤ 1024px ===================== */
+@media (max-width: 1024px) {
+  nav { padding: 1.4rem 2.5rem; }
+  nav.solid { padding: 0.9rem 2.5rem; }
+  .container { padding: 0 2rem; }
+  section { padding: 6rem 0; }
+  .booking-bar { margin: -2.5rem 2rem 0; padding: 1.5rem 2rem; gap: 1.2rem; }
+  .story-grid { gap: 3.5rem; }
+  .rooms-grid { gap: 1rem; }
+  .amenities-grid { grid-template-columns: repeat(2, 1fr); }
+  .exp-item { gap: 3rem; }
+  .location-grid { gap: 3rem; }
+  .footer-top { gap: 2rem; }
+  footer { padding: 4rem 2.5rem 2rem; }
+  .booking-cta { padding: 6rem 2.5rem; }
+  .booking-form { max-width: 100%; }
+}
+
+/* ===================== MOBILE ≤ 768px ===================== */
+@media (max-width: 768px) {
+  /* Kill custom cursor on touch */
+  .cursor-ring, .cursor-dot { display: none !important; }
+
+  /* Clip every section so nothing forces horizontal scroll / zoom-out */
+  section, .booking-bar, .story-section, .location-section,
+  .testimonials-section, .booking-cta, footer, .gallery-section {
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    padding: 1rem 1.2rem;
+    flex-wrap: wrap;
+    align-items: center;
+    background: rgba(30,0,8,0.96);
+    backdrop-filter: blur(20px);
+  }
+  nav.solid { padding: 0.8rem 1.2rem; }
+
+  .nav-toggle { display: flex; }
+  .nav-book { display: none; }
+
+  /* Menu panel — hidden by default */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%; order: 3;
+    gap: 0;
+    padding: 1rem 0 0.5rem;
+    margin-top: 0.8rem;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    background: rgba(30,0,8,0.98);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { padding: 0.6rem 0; border-bottom: 1px solid rgba(201,168,76,0.06); }
+  .nav-links li:last-child { border-bottom: none; }
+  .nav-links a { font-size: 0.6rem; letter-spacing: 3px; color: var(--text-dim); }
+  .nav-links a:hover, .nav-links a:active { color: var(--gold); }
+
+  /* Book Now inside mobile menu */
+  .nav-links-book { display: list-item !important; margin-top: 0.4rem; border-top: 1px solid rgba(201,168,76,0.12) !important; }
+  .nav-links-book a { color: var(--gold) !important; }
+
+  /* ── HERO ── */
+  .hero-frame { inset: 0.8rem; }
+  .hero-frame::before, .hero-frame::after { width: 25px; height: 25px; }
+  .hero-content { padding: 0 1rem; margin-top: 2rem; }
+  .hero-eyebrow { font-size: 0.4rem; letter-spacing: 4px; margin-bottom: 0.8rem; }
+  .hero-eyebrow span { margin: 0 0.3rem; }
+  .hero-title { font-size: clamp(2.6rem, 11vw, 3.5rem); line-height: 1.05; margin-bottom: 1rem; }
+  .hero-sub { font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .hero-sub br { display: none; }
+  .hero-divider .line { width: 40px; }
+  .hero-cta { flex-direction: column; align-items: center; gap: 0.7rem; }
+  .btn-gold, .btn-ghost { width: 210px; text-align: center; padding: 0.8rem 1.5rem; font-size: 0.56rem; }
+  .hero-scroll { bottom: 1rem; }
+  .scroll-rod { height: 30px; }
+
+  /* ── BOOKING BAR ── */
+  .booking-bar {
+    margin: 0 0.8rem;
+    padding: 1.2rem 1rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    border-top: 2px solid var(--gold);
+  }
+  .bb-btn { grid-column: 1 / -1; padding: 0.8rem; font-size: 0.55rem; }
+  .bb-field label { font-size: 0.44rem; letter-spacing: 2.5px; }
+  .bb-field input, .bb-field select { font-size: 0.9rem; }
+
+  /* ── GENERAL SECTIONS ── */
+  section { padding: 4.5rem 0; }
+  .container { padding: 0 1.2rem; }
+  .sec-tag { font-size: 0.45rem; letter-spacing: 4px; }
+  .sec-title { font-size: clamp(1.7rem, 7vw, 2.2rem) !important; line-height: 1.2; }
+  .sec-subtitle { font-size: 0.92rem; max-width: 100%; }
+  .sec-divider { margin: 1rem auto; }
+
+  /* ── STORY ── */
+  .story-section { padding: 4.5rem 0 6rem; }
+  .story-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .story-visual { max-width: 88%; margin: 0 auto; padding-bottom: 3rem; }
+  .story-img-accent { width: 48%; bottom: -2rem; right: -1rem; }
+  .story-badge { width: 68px; height: 68px; top: -0.8rem; left: -0.8rem; }
+  .story-badge .num { font-size: 1.4rem; }
+  .story-badge .lbl { font-size: 0.36rem; }
+  .story-text { padding-right: 0; }
+  .story-text p { font-size: 0.92rem; line-height: 1.8; margin-bottom: 1rem; }
+  .story-stats { grid-template-columns: repeat(3,1fr); gap: 0.8rem; padding-top: 2rem; margin-top: 2rem; }
+  .stat-num { font-size: 1.6rem; }
+  .stat-label { font-size: 0.42rem; letter-spacing: 1px; }
+
+  /* ── ROOMS ── */
+  .rooms-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+  /* Remove the stagger offset on 2nd card */
+  .room-card:nth-child(2) { margin-top: 0 !important; }
+  .room-bg { aspect-ratio: 4/3; }
+  .room-content { padding: 1.2rem; }
+  .room-name { font-size: 1.2rem; }
+  /* Always show features & book button on mobile (no hover) */
+  .room-feats { opacity: 1 !important; transform: translateY(0) !important; }
+  .room-book { opacity: 1 !important; transform: translateY(0) !important; }
+
+  /* ── EXPERIENCE TIMELINE ── */
+  .exp-timeline::before { left: 12px; transform: none; }
+  .exp-item {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-bottom: 3.5rem;
+    padding-left: 2.5rem;
+  }
+  /* Centre dot repositioned to left rail */
+  .exp-item::after {
+    left: 12px; top: 8px;
+    transform: translateX(-50%);
+    width: 24px; height: 24px;
+    font-size: 0.5rem; padding: 0.3rem;
+  }
+  /* Remove alternating layout on mobile — all left-aligned */
+  .exp-item:nth-child(even) .exp-img-wrap { order: unset !important; }
+  .exp-item:nth-child(even) .exp-text { order: unset !important; text-align: left !important; }
+  .exp-item:nth-child(even) .exp-tag { float: none !important; }
+  .exp-item:nth-child(even) .exp-tag::before { display: none !important; }
+  .exp-item:nth-child(even) .exp-tag::after { display: inline-block !important; }
+  .exp-img { aspect-ratio: 16/9; }
+  .exp-num { font-size: 3rem; bottom: -0.5rem; right: 0.5rem; }
+  .exp-text h3 { font-size: 1.4rem; }
+  .exp-text p { font-size: 0.9rem; }
+  .exp-tag { font-size: 0.46rem; padding: 0.3rem 0.7rem; }
+
+  /* ── AMENITIES ── */
+  .amenities-grid { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+  .amenity { padding: 1.3rem 0.8rem; }
+  .amenity:hover { transform: none; }
+  .amenity-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+  .amenity-name { font-size: 0.46rem; letter-spacing: 1.5px; }
+  .amenity-desc { font-size: 0.76rem; line-height: 1.5; }
+
+  /* ── GALLERY ── */
+  .gallery-strip { flex-wrap: wrap; }
+  .gal-item { flex: 0 0 50% !important; height: 32vw; min-height: 140px; }
+  .gal-item:last-child { flex: 0 0 100% !important; height: 40vw; }
+  .gal-label { opacity: 1 !important; transform: none !important; font-size: 0.46rem; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-wrap { padding: 0 1.2rem; }
+  .t-slider { min-height: 280px; }
+  .t-quote { font-size: 0.95rem; line-height: 1.75; }
+  .t-quote::before { font-size: 3.5rem; top: -1rem; left: -0.8rem; }
+  .t-author { font-size: 0.5rem; }
+
+  /* ── BOOKING CTA ── */
+  .booking-cta { padding: 4.5rem 1.2rem; }
+  .booking-form {
+    grid-template-columns: 1fr;
+    gap: 1rem; padding: 1.4rem;
+    max-width: 100%;
+  }
+  .bf.submit { margin-top: 0.3rem; }
+  .bf.submit .btn-gold { width: 100%; text-align: center; }
+  .loyalty-strip { font-size: 0.48rem; letter-spacing: 1.5px; }
+  .loyalty-strip::before, .loyalty-strip::after { margin: 0 0.4rem; }
+
+  /* ── LOCATION ── */
+  .location-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .location-text h2 { font-size: 1.9rem; }
+  .location-text p { font-size: 0.9rem; }
+  .location-list li { font-size: 0.85rem; padding: 0.6rem 0; }
+  .map-box { aspect-ratio: 16/9; }
+
+  /* ── FOOTER ── */
+  footer { padding: 3rem 1.2rem 1.5rem; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 1.8rem; }
+  .footer-brand { grid-column: 1 / -1; }
+  .footer-brand p { max-width: 100%; font-size: 0.82rem; }
+  .footer-brand-name { font-size: 1.2rem; }
+  .footer-col h4 { font-size: 0.48rem; }
+  .footer-col a { font-size: 0.82rem; }
+  .footer-bottom { flex-direction: column; gap: 0.4rem; text-align: center; }
+  .footer-bottom p { font-size: 0.48rem; }
+}
+
+/* ===================== SMALL MOBILE ≤ 420px ===================== */
+@media (max-width: 420px) {
+  nav { padding: 0.9rem 1rem; }
+  .nav-logo .name { font-size: 1.1rem; }
+  .nav-logo .sub { font-size: 0.38rem; letter-spacing: 3px; }
+
+  .hero-title { font-size: clamp(2.2rem, 12vw, 2.8rem); }
+  .hero-content { margin-top: 3rem; }
+
+  .booking-bar {
+    margin: 0 0.4rem;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    padding: 1rem 0.9rem;
+  }
+
+  .container { padding: 0 0.9rem; }
+  section { padding: 3.5rem 0; }
+
+  .story-visual { max-width: 100%; }
+  .story-img-accent { width: 42%; right: -0.5rem; }
+
+  .amenities-grid { grid-template-columns: 1fr; }
+  .amenity { padding: 1.1rem 0.9rem; }
+
+  .gal-item { flex: 0 0 100% !important; height: 55vw !important; }
+
+  .t-slider { min-height: 320px; }
+  .t-quote { font-size: 0.88rem; }
+
+  .booking-cta { padding: 3.5rem 0.9rem; }
+  .booking-form { padding: 1rem; gap: 0.9rem; }
+
+  .location-text h2 { font-size: 1.6rem; }
+  .map-box { aspect-ratio: 4/3; }
+
+  footer { padding: 2.5rem 0.9rem 1rem; }
+  .footer-top { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer-social { flex-wrap: wrap; }
+}
 </style>
 </head>
 <body>
@@ -961,11 +1228,15 @@ body.cursor-active .cursor-ring {
     <span class="name">Jonker</span>
     <span class="sub">Boutique Hotel · Malacca</span>
   </a>
-  <ul class="nav-links">
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
     <li><a href="#rooms">Rooms</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#amenities">Amenities</a></li>
     <li><a href="#location">Location</a></li>
+    <li class="nav-links-book"><a href="#book">Book Now</a></li>
   </ul>
   <a href="#book" class="nav-book">Book Now</a>
 </nav>
@@ -1592,6 +1863,30 @@ window.addEventListener('scroll', () => {
     if (accImg) accImg.style.backgroundPositionY = `${50 - (pct - 0.5) * 15}%`;
   }
 });
+
+// ===== HAMBURGER NAV =====
+const navToggle = document.getElementById('navToggle');
+const navLinksEl = document.getElementById('navLinks');
+if (navToggle) {
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('active');
+    navLinksEl.classList.toggle('open');
+  });
+  navLinksEl.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navToggle.classList.remove('active');
+      navLinksEl.classList.remove('open');
+    });
+  });
+}
+
+// ===== HIDE CURSOR ON TOUCH =====
+if ('ontouchstart' in window) {
+  const ring = document.getElementById('cursorRing');
+  const dot = document.getElementById('cursorDot');
+  if (ring) ring.style.display = 'none';
+  if (dot) dot.style.display = 'none';
+}
 
 // ===== SMOOTH ANCHOR SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(a => {
