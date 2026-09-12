@@ -1679,7 +1679,7 @@ body.cursor-active .cursor-ring {
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2025 Jonker Boutique Hotel · Jonker Walk, Malacca, Malaysia</p>
+    <p>© <span id="footerYear">2025</span> Jonker Boutique Hotel · Jonker Walk, Malacca, Malaysia</p>
     <p>Designed with ♥ · <a href="#">Privacy Policy</a></p>
   </div>
 </footer>
@@ -1885,6 +1885,10 @@ if ('ontouchstart' in window) {
   if (ring) ring.style.display = 'none';
   if (dot) dot.style.display = 'none';
 }
+
+// ===== FOOTER YEAR =====
+const footerYear = document.getElementById('footerYear');
+if (footerYear) footerYear.textContent = new Date().getFullYear();
 
 // ===== SMOOTH ANCHOR SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(a => {
