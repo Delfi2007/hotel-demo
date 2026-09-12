@@ -1610,15 +1610,15 @@ body.cursor-active .cursor-ring {
   <div class="booking-form rv d3">
     <div class="bf">
       <label>Check In</label>
-      <input type="date">
+      <input type="date" id="directCheckIn" required>
     </div>
     <div class="bf">
       <label>Check Out</label>
-      <input type="date">
+      <input type="date" id="directCheckOut" required>
     </div>
     <div class="bf">
       <label>Room Type</label>
-      <select>
+      <select id="directRoomType">
         <option>Superior</option>
         <option>Deluxe</option>
         <option>Premier Deluxe</option>
@@ -1627,9 +1627,10 @@ body.cursor-active .cursor-ring {
       </select>
     </div>
     <div class="bf submit">
-      <button class="btn-gold" style="width:100%;">Book Direct</button>
+      <button type="button" class="btn-gold" style="width:100%;" id="bookDirectBtn">Book Direct</button>
     </div>
   </div>
+  <p id="bookDirectMessage" style="text-align:center; margin-top:1rem; display:none;"></p>
   <div class="loyalty-strip rv d5">Direct booking always gets you the best price</div>
 </section>
 
@@ -1884,6 +1885,32 @@ if ('ontouchstart' in window) {
   const dot = document.getElementById('cursorDot');
   if (ring) ring.style.display = 'none';
   if (dot) dot.style.display = 'none';
+}
+
+// ===== BOOK DIRECT VALIDATION =====
+const bookDirectBtn = document.getElementById('bookDirectBtn');
+if (bookDirectBtn) {
+  bookDirectBtn.addEventListener('click', () => {
+    const checkIn = document.getElementById('directCheckIn');
+    const checkOut = document.getElementById('directCheckOut');
+    const roomType = document.getElementById('directRoomType');
+    const message = document.getElementById('bookDirectMessage');
+    if (!checkIn.value || !checkOut.value) {
+      message.textContent = 'Please choose both a check-in and check-out date.';
+      message.style.color = '#ff8a80';
+      message.style.display = 'block';
+      return;
+    }
+    if (checkOut.value <= checkIn.value) {
+      message.textContent = 'Check-out date must be after check-in date.';
+      message.style.color = '#ff8a80';
+      message.style.display = 'block';
+      return;
+    }
+    message.textContent = `Thanks! We've noted your request for a ${roomType.value} room, ${checkIn.value} to ${checkOut.value}. Our team will confirm by email shortly.`;
+    message.style.color = 'var(--gold)';
+    message.style.display = 'block';
+  });
 }
 
 // ===== SMOOTH ANCHOR SCROLL =====
