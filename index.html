@@ -116,6 +116,10 @@ nav {
   display:flex; justify-content:space-between; align-items:center;
   transition: all 0.5s ease;
 }
+/* Keeps anchor-scrolled sections from landing under the fixed nav bar. */
+#about, #rooms, #experience, #amenities, #testimonials, #location, #book {
+  scroll-margin-top: 100px;
+}
 nav.solid {
   background: rgba(30,0,8,0.96);
   backdrop-filter: blur(20px);
