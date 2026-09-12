@@ -1274,11 +1274,11 @@ body.cursor-active .cursor-ring {
 <div class="booking-bar rv">
   <div class="bb-field">
     <label>Check In</label>
-    <input type="date" placeholder="DD / MM / YYYY">
+    <input type="date" placeholder="DD / MM / YYYY" id="bbCheckIn">
   </div>
   <div class="bb-field">
     <label>Check Out</label>
-    <input type="date" placeholder="DD / MM / YYYY">
+    <input type="date" placeholder="DD / MM / YYYY" id="bbCheckOut">
   </div>
   <div class="bb-field">
     <label>Guests</label>
@@ -1610,11 +1610,11 @@ body.cursor-active .cursor-ring {
   <div class="booking-form rv d3">
     <div class="bf">
       <label>Check In</label>
-      <input type="date">
+      <input type="date" id="directCheckIn">
     </div>
     <div class="bf">
       <label>Check Out</label>
-      <input type="date">
+      <input type="date" id="directCheckOut">
     </div>
     <div class="bf">
       <label>Room Type</label>
@@ -1885,6 +1885,19 @@ if ('ontouchstart' in window) {
   if (ring) ring.style.display = 'none';
   if (dot) dot.style.display = 'none';
 }
+
+// ===== CHECK-OUT MIN DATE =====
+function linkCheckOutMin(checkInId, checkOutId) {
+  const checkIn = document.getElementById(checkInId);
+  const checkOut = document.getElementById(checkOutId);
+  if (!checkIn || !checkOut) return;
+  checkIn.addEventListener('change', () => {
+    checkOut.min = checkIn.value;
+    if (checkOut.value && checkOut.value <= checkIn.value) checkOut.value = '';
+  });
+}
+linkCheckOutMin('bbCheckIn', 'bbCheckOut');
+linkCheckOutMin('directCheckIn', 'directCheckOut');
 
 // ===== SMOOTH ANCHOR SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(a => {
