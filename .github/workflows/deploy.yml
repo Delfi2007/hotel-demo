@@ -1,0 +1,97 @@
+name: iQForge Deploy Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: 'Commit SHA being deployed'
+        required: false
+        default: ''
+      message:
+        description: 'Deployment message'
+        required: false
+        default: 'Deployment from iQForge'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate site structure
+        run: |
+          test -f index.html || { echo "::error::index.html is missing"; exit 1; }
+          grep -qi "<html" index.html || { echo "::error::index.html has no <html> tag"; exit 1; }
+          echo "index.html present ($(wc -c < index.html) bytes)"
+
+      - name: Package site
+        run: |
+          mkdir -p dist
+          cp index.html dist/
+          echo "Packaged dist/index.html"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install html5validator
+        run: pip install html5validator
+
+      - name: Validate HTML5
+        run: html5validator --root . --match "index.html"
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  verify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify live site responds
+        run: |
+          URL="${{ needs.deploy.outputs.page_url }}"
+          echo "Checking $URL"
+          for i in 1 2 3 4 5 6; do
+            CODE=$(curl -s -o /tmp/body.html -w "%{http_code}" "$URL")
+            if [ "$CODE" = "200" ] && grep -qi "<html" /tmp/body.html; then
+              echo "Live at $URL (HTTP 200, expected markup present)"
+              exit 0
+            fi
+            echo "Attempt $i: HTTP $CODE, retrying in 10s..."
+            sleep 10
+          done
+          echo "::error::Live site at $URL did not return 200 with expected content"
+          exit 1
