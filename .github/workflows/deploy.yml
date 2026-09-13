@@ -61,7 +61,16 @@ jobs:
         run: pip install html5validator
 
       - name: Validate HTML5
-        run: html5validator --root . --match "index.html"
+        # --ignore filters CSS false-positives from the underlying validator's outdated property
+        # whitelist (inset, backdrop-filter, aspect-ratio, background-clip:text, and multi-stop
+        # linear-gradient are all valid, widely-supported CSS) — real HTML markup errors still fail.
+        run: |
+          html5validator --root . --match "index.html" \
+            --ignore "CSS: \"inset\"" \
+            "CSS: \"backdrop-filter\"" \
+            "CSS: \"aspect-ratio\"" \
+            "background-clip" \
+            "too few values for the property"
 
   deploy:
     needs: test
